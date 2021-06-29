@@ -1,0 +1,77 @@
+version: '3'
+
+networks: 
+    bibbox-default-network:
+        external: true
+
+services:
+    §§INSTANCE-dspace:
+        image: dspace/dspace:dspace-7_x-test
+        restart: unless-stopped
+        container_name: §§INSTANCE-dspace
+        networks: 
+            - bibbox-default-network
+        proxy:
+            TYPE: PRIMARY
+            URLPREFIX:  §§INSTANCE
+            TEMPLATE: default
+            DISPLAYNAME: 'DSpace'
+        ports:
+            - 8080:8080
+            - 8009:8009
+        stdin_open: true
+        tty: true
+        volumes:
+            - ./data/assetstore:/dspace/assetstore
+            - ./images/configs/local.cfg:/dspace/config/local.cfg
+        entrypoint:
+            - /bin/bash
+            - '-c'
+            - |
+                while (!</dev/tcp/§§INSTANCE-dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
+                /dspace/bin/dspace database migrate
+                catalina.sh run
+    
+    §§INSTANCE-dspacedb:
+        image: dspace/dspace-postgres-pgcrypto
+        container_name: §§INSTANCE-dspacedb
+        restart: unless-stopped
+        environment:
+            PGDATA: /pgdata
+        networks:
+            - bibbox-default-network
+        ports:
+            - 5432:5432
+        stdin_open: true
+        tty: true
+        volumes: 
+            - ./data/pgdata:/pgdata
+    
+    §§INSTANCE-dspacesolr:
+        image: solr:8.8
+        container_name: §§INSTANCE-dspacesolr
+        restart: unless-stopped
+        networks:
+            - bibbox-default-network
+        ports:
+            8983:8983
+        stdin_open: true
+        tty: true
+        working_dir: /var/solr/data
+        volumes:
+            - ./images/configs/solr/authority:/opt/solr/server/solr/configsets/authority
+            - ./images/configs/solr/oai:/opt/solr/server/solr/configsets/oai
+            - ./images/configs/solr/search:/opt/solr/server/solr/configsets/search
+            - ./images/configs/solr/statistics:/opt/solr/server/solr/configsets/statistics
+            # Keep Solr data directory between reboots
+            - ./data/solr_data:/var/solr/data
+        entrypoint:
+            - /bin/bash
+            - '-c'
+            - |
+                init-var-solr
+                precreate-core authority /opt/solr/server/solr/configsets/authority
+                precreate-core oai /opt/solr/server/solr/configsets/oai
+                precreate-core search /opt/solr/server/solr/configsets/search
+                precreate-core statistics /opt/solr/server/solr/configsets/statistics
+                exec solr -f
