@@ -2,7 +2,7 @@
     "makefolders":[
         "data/assetstore",
         "data/pgdata",
-        "data/solr_data"
+        "data/solr_data",
         "images/configs"
     ],
     "copyfiles":[
