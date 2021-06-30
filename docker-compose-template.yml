@@ -10,6 +10,8 @@ services:
         user: "1000:1000"
         restart: unless-stopped
         container_name: §§INSTANCE-dspace
+        links:
+            §§INSTANCE-dspacedb:dspacedb
         networks: 
             - bibbox-default-network
         proxy:
