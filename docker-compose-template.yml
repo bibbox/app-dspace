@@ -24,8 +24,8 @@ services:
         tty: true
         volumes:
             - ./data/assetstore:/dspace/assetstore
-            - ./images/configs/local.cfg:/dspace/config/local.cfg
             - ./images/ROOT:/usr/local/tomcat/webapps/ROOT
+            - ./images/configs/local.cfg:/dspace/config/local.cfg
         entrypoint:
             - /bin/bash
             - '-c'
@@ -51,6 +51,7 @@ services:
     
     §§INSTANCE-dspacesolr:
         image: solr:8.8
+        user: "1000:1000"
         container_name: §§INSTANCE-dspacesolr
         restart: unless-stopped
         networks:
