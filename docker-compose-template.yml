@@ -34,6 +34,7 @@ services:
     
     §§INSTANCE-dspacedb:
         image: dspace/dspace-postgres-pgcrypto
+        user: "1000:1000"
         container_name: §§INSTANCE-dspacedb
         restart: unless-stopped
         environment:
