@@ -68,7 +68,7 @@
             "destination":"images/ROOT/index.html",
             "source":"images/ROOT/index.jsp",
             "destination":"images/ROOT/index.jsp",
-            "source":"ROOT/META-INF/context.xml",
+            "source":"images/ROOT/META-INF/context.xml",
             "destination":"images/ROOT/META-INF/context.xml",
             "source":"images/ROOT/WEB-INF/web.xml",
             "destination":"images/ROOT/WEB-INF/web.xml"
