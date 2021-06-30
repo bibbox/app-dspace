@@ -25,6 +25,7 @@ services:
         volumes:
             - ./data/assetstore:/dspace/assetstore
             - ./images/configs/local.cfg:/dspace/config/local.cfg
+            - ./images/ROOT/:/usr/local/tomcat/webapps/ROOT
         entrypoint:
             - /bin/bash
             - '-c'
