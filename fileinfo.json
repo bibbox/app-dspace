@@ -2,7 +2,10 @@
     "makefolders":[
         "data/assetstore",
         "data/pgdata",
-        "data/solr_data",
+        "data/solr_data/authority/conf",
+        "data/solr_data/search/conf",
+        "data/solr_data/statistics/conf",
+        "data/solr_data/oai/conf",
         "images/configs",
         "images/ROOT/META-INF",
 	    "images/ROOT/WEB-INF"
