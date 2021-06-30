@@ -25,7 +25,7 @@ services:
         volumes:
             - ./data/assetstore:/dspace/assetstore
             - ./images/ROOT:/usr/local/tomcat/webapps/ROOT
-            - type:bind
+            - type: bind
               source: ./images/configs/local.cfg
               target: /dspace/config/local.cfg
         entrypoint:
