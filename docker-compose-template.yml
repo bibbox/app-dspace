@@ -11,8 +11,8 @@ services:
         restart: unless-stopped
         container_name: §§INSTANCE-dspace
         links:
-            §§INSTANCE-dspacedb:dspacedb
-            §§INSTANCE-dspacesolr:dspacesolr
+            - §§INSTANCE-dspacedb:dspacedb
+            - §§INSTANCE-dspacesolr:dspacesolr
 
         networks: 
             - bibbox-default-network
