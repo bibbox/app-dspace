@@ -13,6 +13,7 @@ services:
         links:
             §§INSTANCE-dspacedb:dspacedb
             §§INSTANCE-dspacesolr:dspacesolr
+
         networks: 
             - bibbox-default-network
         proxy:
