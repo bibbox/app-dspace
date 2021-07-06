@@ -55,6 +55,7 @@ services:
     
     §§INSTANCE-dspacesolr:
         image: solr:8.8
+        user: "1000:1000"
         container_name: §§INSTANCE-dspacesolr
         restart: unless-stopped
         networks:
@@ -63,14 +64,14 @@ services:
             8983:8983
         stdin_open: true
         tty: true
-        working_dir: /var/solr/data
+        working_dir: /home/solr/data
         volumes:
             - ./images/configs/solr/authority:/opt/solr/server/solr/configsets/authority
             - ./images/configs/solr/oai:/opt/solr/server/solr/configsets/oai
             - ./images/configs/solr/search:/opt/solr/server/solr/configsets/search
             - ./images/configs/solr/statistics:/opt/solr/server/solr/configsets/statistics
             # Keep Solr data directory between reboots
-            - ./data/solr_data:/var/solr/data
+            - ./data/solr_data:/home/solr/data
         entrypoint:
             - /bin/bash
             - '-c'
