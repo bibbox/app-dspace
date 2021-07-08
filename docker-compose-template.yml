@@ -55,7 +55,7 @@ services:
     
     §§INSTANCE-dspacesolr:
         image: solr:8.8
-        user: "1000:133"
+        # user: "1000:133"
         container_name: §§INSTANCE-dspacesolr
         restart: unless-stopped
         networks:
