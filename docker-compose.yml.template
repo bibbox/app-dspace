@@ -6,6 +6,7 @@ networks:
 
 services:
     §§INSTANCE-dspace:
+        container_name: §§INSTANCE-dspace
         image: dspace/dspace:dspace-7_x-test
         user: "1000:1000"
         restart: unless-stopped
@@ -33,6 +34,7 @@ services:
                 catalina.sh run
     
     §§INSTANCE-dspace-angular:
+        container_name: §§INSTANCE-dspace-angular
         user: "1000:1000"
         environment:
             DSPACE_HOST: §§INSTANCE-dspace-angular
@@ -59,6 +61,7 @@ services:
            - ./images/environment.dev.ts:/app/src/environments/environment.dev.ts
 
     §§INSTANCE-dspacedb:
+        container_name: §§INSTANCE-dspacedb
         image: dspace/dspace-postgres-pgcrypto
         restart: unless-stopped
         environment:
@@ -73,6 +76,7 @@ services:
             - ./data/pgdata:/pgdata
     
     §§INSTANCE-dspacesolr:
+        container_name: §§INSTANCE-dspacesolr
         image: solr:8.8
         restart: unless-stopped
         networks:
