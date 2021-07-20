@@ -50,6 +50,8 @@ services:
             URLPREFIX:  §§INSTANCE
             TEMPLATE: default
             DISPLAYNAME: 'DSpace'
+        links:
+            - §§INSTANCE-dspace:dspace
         ports:
            - 4000:4000
            - 9876:9876
