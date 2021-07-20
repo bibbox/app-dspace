@@ -15,11 +15,6 @@ services:
 
         networks: 
             - bibbox-default-network
-        proxy:
-            TYPE: PRIMARY
-            URLPREFIX:  §§INSTANCE
-            TEMPLATE: default
-            DISPLAYNAME: 'DSpace'
         ports:
             - 8080:8080
             - 8009:8009
