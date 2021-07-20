@@ -9,7 +9,6 @@ services:
         image: dspace/dspace:dspace-7_x-test
         user: "1000:1000"
         restart: unless-stopped
-        container_name: §§INSTANCE-dspace
         links:
             - §§INSTANCE-dspacedb:dspacedb
             - §§INSTANCE-dspacesolr:dspacesolr
@@ -34,7 +33,6 @@ services:
                 catalina.sh run
     
     §§INSTANCE-dspace-angular:
-        container_name: §§INSTANCE-dspace-angular
         user: "1000:1000"
         environment:
             DSPACE_HOST: §§INSTANCE-dspace-angular
@@ -59,7 +57,6 @@ services:
 
     §§INSTANCE-dspacedb:
         image: dspace/dspace-postgres-pgcrypto
-        container_name: §§INSTANCE-dspacedb
         restart: unless-stopped
         environment:
             PGDATA: /pgdata
@@ -74,7 +71,6 @@ services:
     
     §§INSTANCE-dspacesolr:
         image: solr:8.8
-        container_name: §§INSTANCE-dspacesolr
         restart: unless-stopped
         networks:
             - bibbox-default-network
