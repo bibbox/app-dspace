@@ -7,7 +7,7 @@ networks:
 services:
     §§INSTANCE-dspace:
         image: dspace/dspace:dspace-7_x-test
-        user: "1000:133"
+        user: "1000:1000"
         restart: unless-stopped
         container_name: §§INSTANCE-dspace
         links:
@@ -16,11 +16,6 @@ services:
 
         networks: 
             - bibbox-default-network
-        proxy:
-            TYPE: PRIMARY
-            URLPREFIX:  §§INSTANCE
-            TEMPLATE: default
-            DISPLAYNAME: 'DSpace'
         ports:
             - 8080:8080
             - 8009:8009
@@ -38,6 +33,30 @@ services:
                 /dspace/bin/dspace database migrate
                 catalina.sh run
     
+    §§INSTANCE-dspace-angular:
+        container_name: §§INSTANCE-dspace-angular
+        user: "1000:1000"
+        environment:
+            DSPACE_HOST: §§INSTANCE-dspace-angular
+            DSPACE_NAMESPACE: /
+            DSPACE_PORT: '4000'
+            DSPACE_SSL: "false"
+        image: dspace/dspace-angular:latest
+        build:
+            context: ./images/src/
+            dockerfile: Dockerfile
+        networks:
+            - bibbox-default-network
+        ports:
+        - published: 4000
+            target: 4000
+        - published: 9876
+            target: 9876
+        stdin_open: true
+        tty: true
+        volumes:
+        - ./images/environment.dev.ts:/app/src/environments/environment.dev.ts
+
     §§INSTANCE-dspacedb:
         image: dspace/dspace-postgres-pgcrypto
         container_name: §§INSTANCE-dspacedb
@@ -55,7 +74,6 @@ services:
     
     §§INSTANCE-dspacesolr:
         image: solr:8.8
-        # user: "1000:133"
         container_name: §§INSTANCE-dspacesolr
         restart: unless-stopped
         networks:
@@ -64,14 +82,14 @@ services:
             8983:8983
         stdin_open: true
         tty: true
-        working_dir: /home/solr/data
+        working_dir: /var/solr/data
         volumes:
             - ./images/configs/solr/authority:/opt/solr/server/solr/configsets/authority
             - ./images/configs/solr/oai:/opt/solr/server/solr/configsets/oai
             - ./images/configs/solr/search:/opt/solr/server/solr/configsets/search
             - ./images/configs/solr/statistics:/opt/solr/server/solr/configsets/statistics
             # Keep Solr data directory between reboots
-            - ./data/solr_data:/home/solr/data
+            - ./data/solr_data:/var/solr/data
         entrypoint:
             - /bin/bash
             - '-c'
@@ -81,4 +99,5 @@ services:
                 precreate-core oai /opt/solr/server/solr/configsets/oai
                 precreate-core search /opt/solr/server/solr/configsets/search
                 precreate-core statistics /opt/solr/server/solr/configsets/statistics
+
                 exec solr -f
