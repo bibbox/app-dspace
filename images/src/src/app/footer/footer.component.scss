@@ -1,0 +1,42 @@
+:host {
+
+  .top-footer {
+    background-color: var(--ds-top-footer-bg);
+    border-top: var(--ds-footer-border);
+    text-align: center;
+    padding: var(--ds-footer-padding);
+    z-index: var(--ds-footer-z-index);
+
+    p {
+      margin: 0;
+    }
+
+    div > img {
+      height: var(--ds-footer-logo-height);
+    }
+
+    .footer {
+      background-color: var(--ds-footer-bg);
+
+      ul {
+        li {
+          display: inline-flex;
+          a {
+            padding: 0 calc(var(--bs-spacer) / 2);
+            color: inherit
+          }
+
+          &:not(:last-child) {
+            &:after {
+              content: '';
+              border-right: 1px var(--bs-secondary) solid;
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
+
+

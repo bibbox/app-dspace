@@ -1,0 +1,19 @@
+<div class="d-flex">
+    <div class="scan-thumbnail pr-2">
+        <ds-thumbnail [thumbnail]="getThumbnail() | async" [defaultImage]="'assets/images/Slide-placeholder.svg'"></ds-thumbnail>
+    </div>
+    <div class="flex-grow-1">
+        <ds-slide-input-suggestions [suggestions]="allSuggestions" [(ngModel)]="selectedName" (clickSuggestion)="select($event)"
+                                       (submitSuggestion)="selectCustom($event)"></ds-slide-input-suggestions>
+        <span class="text-muted">
+        <span *ngIf="dso.allMetadata('organization.address.addressLocality').length > 0"
+              class="item-list-address-locality">
+                    <span [innerHTML]="firstMetadataValue(['organization.address.addressLocality'])"><span [innerHTML]="firstMetadataValue(['organization.address.addressLocality'])"></span></span><span *ngIf="dso.allMetadata('organization.address.addressCountry').length > 0">, </span>
+        </span>
+        <span *ngIf="dso.allMetadata('organization.address.addressCountry').length > 0"
+              class="item-list-address-country">
+                    <span [innerHTML]="firstMetadataValue(['organization.address.addressCountry'])"><span [innerHTML]="firstMetadataValue(['organization.address.addressCountry'])"></span></span>
+        </span>
+        </span>
+    </div>
+</div>

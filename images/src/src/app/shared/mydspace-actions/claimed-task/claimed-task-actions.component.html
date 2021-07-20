@@ -1,0 +1,13 @@
+<ng-container *ngVar="(actionRD$ | async)?.payload as workflowAction">
+  <div class="mt-1 mb-3">
+    <ds-claimed-task-actions-loader *ngFor="let option of workflowAction?.options"
+                                    [option]="option"
+                                    [object]="object"
+                                    (processCompleted)="this.processCompleted.emit($event)">
+    </ds-claimed-task-actions-loader>
+    <ds-claimed-task-actions-loader [option]="returnToPoolOption"
+                                    [object]="object"
+                                    (processCompleted)="this.processCompleted.emit($event)">
+    </ds-claimed-task-actions-loader>
+  </div>
+</ng-container>

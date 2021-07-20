@@ -1,0 +1,57 @@
+<h2 class="item-page-title-field">
+  {{'scan.page.titleprefix' | translate}}<ds-metadata-values 
+  [mdValues]="[object?.firstMetadata('dc.title'), object?.firstMetadata('scan.scanner.manufacturer'), object?.firstMetadata('scan.scanner.type')]" [separator]="', '"></ds-metadata-values>
+</h2>
+
+<div class="row">
+  <div class="col-xs-12 col-md-4">
+    <ds-metadata-field-wrapper>
+      <ds-thumbnail [thumbnail]="getThumbnail() | async" [defaultImage]="'assets/images/scan-placeholder.png'"></ds-thumbnail>
+    </ds-metadata-field-wrapper>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['scan.email']"
+      [label]="'scan.page.email'">
+    </ds-generic-item-page-field>
+    <!--<ds-generic-item-page-field [item]="object"-->
+      <!--[fields]="['scan.identifier.orcid']"-->
+      <!--[label]="'scan.page.orcid'">-->
+    <!--</ds-generic-item-page-field>-->
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['scan.birthDate']"
+      [label]="'scan.page.birthdate'">
+    </ds-generic-item-page-field>
+    <!--<ds-generic-item-page-field [item]="object"-->
+      <!--[fields]="['scan.identifier.staffid']"-->
+      <!--[label]="'scan.page.staffid'">-->
+    <!--</ds-generic-item-page-field>-->
+  </div>
+  <div class="col-xs-12 col-md-6">
+
+    <ds-generic-item-page-field [item]="object"
+    [fields]="['scan.operator']"
+    [label]="'scan.operator'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+    [fields]="['scan.scanner.manufacturer']"
+    [label]="'scan.scanner.manufacturer'">
+    </ds-generic-item-page-field>
+
+  
+    <ds-related-items
+      [parentItem]="object"
+      [relationType]="'isSlideOfScan'"
+      [label]="'relationships.isSlideOfScan' | translate">
+    </ds-related-items>
+
+    <ds-related-items
+      [parentItem]="object"
+      [relationType]="'isWsiOfScan'"
+      [label]="'relationships.isWsiOfScan' | translate">
+    </ds-related-items>
+
+    <div>
+      <a class="btn btn-outline-primary" [routerLink]="['/items/' + object.id + '/full']">
+        {{"item.page.link.full" | translate}}
+      </a>
+    </div>
+</div>

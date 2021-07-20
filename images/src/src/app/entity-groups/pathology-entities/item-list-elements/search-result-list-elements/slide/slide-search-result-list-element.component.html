@@ -1,0 +1,19 @@
+<ds-item-type-badge [object]="dso"></ds-item-type-badge>
+<ds-truncatable [id]="dso.id">
+    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
+       [routerLink]="['/items/' + dso.id]" class="lead"
+       [innerHTML]="firstMetadataValue('slide.identifier.uuidslide')"></a>
+    <span *ngIf="linkType == linkTypes.None"
+          class="lead"
+          [innerHTML]="firstMetadataValue('slide.id')"></span>
+    <span class="text-muted">
+    <ds-truncatable-part [id]="dso.id" [minLines]="3">
+            <span *ngIf="dso.allMetadata(['dc.title']).length > 0"
+                  class="item-list-slide-description">
+                <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
+                        [innerHTML]="firstMetadataValue('slide.identifier.label')"></span>
+                </ds-truncatable-part>
+            </span>
+        </ds-truncatable-part>
+  </span>
+</ds-truncatable>

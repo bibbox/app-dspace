@@ -1,0 +1,58 @@
+<h2 class="item-page-title-field">
+  {{'wsi.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
+</h2>
+
+<div class="row">
+  <div class="col-xs-12 col-md-4">
+    <ds-metadata-field-wrapper>
+      <ds-thumbnail [thumbnail]="getThumbnail() | async" [defaultImage]="'assets/images/wsi-placeholder.svg'"></ds-thumbnail>
+    </ds-metadata-field-wrapper>
+    <!--<ds-generic-item-page-field [item]="object"-->
+      <!--[fields]="['wsi.identifier.status']"-->
+      <!--[label]="'wsi.page.status'">-->
+    <!--</ds-generic-item-page-field>-->
+    <ds-metadata-representation-list
+      [parentItem]="object"
+      [itemType]="'Slide'"
+      [metadataField]="'wsi.contributor.other'"
+      [label]="'wsi.page.contributor' | translate">
+    </ds-metadata-representation-list>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['wsi.identifier.funder']"
+      [label]="'wsi.page.funder'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.identifier']"
+      [label]="'wsi.page.id'">
+    </ds-generic-item-page-field>
+    <!--<ds-generic-item-page-field [item]="object"-->
+      <!--[fields]="['wsi.identifier.expectedcompletion']"-->
+      <!--[label]="'wsi.page.expectedcompletion'">-->
+    <!--</ds-generic-item-page-field>-->
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <ds-related-items
+    [parentItem]="object"
+    [relationType]="'isSlideOfWsi'"
+    [label]="'relationships.isSlideOf' | translate">
+   </ds-related-items>
+    <ds-related-items
+      [parentItem]="object"
+      [relationType]="'isScanOfWsi'"
+      [label]="'relationships.isScanOf' | translate">
+    </ds-related-items>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.description']"
+      [label]="'wsi.page.description'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="object"
+      [fields]="['dc.subject']"
+      [label]="'wsi.page.keyword'">
+    </ds-generic-item-page-field>
+    <div>
+      <a class="btn btn-outline-primary" [routerLink]="['/items/' + object.id + '/full']">
+        {{"item.page.link.full" | translate}}
+      </a>
+    </div>
+  </div>
+</div>
