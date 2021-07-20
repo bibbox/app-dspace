@@ -8,7 +8,6 @@ services:
     §§INSTANCE-dspace:
         container_name: §§INSTANCE-dspace
         image: dspace/dspace:dspace-7_x-test
-        user: "1000:1000"
         restart: unless-stopped
         links:
             - §§INSTANCE-dspacedb:dspacedb
@@ -35,7 +34,6 @@ services:
     
     §§INSTANCE-dspace-angular:
         container_name: §§INSTANCE-dspace-angular
-        user: "1000:1000"
         environment:
             DSPACE_HOST: §§INSTANCE-dspace-angular
             DSPACE_NAMESPACE: /
