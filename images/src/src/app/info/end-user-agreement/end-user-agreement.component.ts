@@ -24,7 +24,7 @@ export class EndUserAgreementComponent implements OnInit {
   /**
    * Whether or not the user agreement has been accepted
    */
-  accepted = true;
+  accepted = false;
 
   constructor(protected endUserAgreementService: EndUserAgreementService,
               protected notificationsService: NotificationsService,
@@ -58,7 +58,7 @@ export class EndUserAgreementComponent implements OnInit {
   submit() {
     this.endUserAgreementService.setUserAcceptedAgreement(this.accepted).pipe(
       switchMap((success) => {
-        if (1) {
+        if (success) {
           this.notificationsService.success(this.translate.instant('info.end-user-agreement.accept.success'));
           return this.route.queryParams.pipe(map((params) => params.redirect));
         } else {

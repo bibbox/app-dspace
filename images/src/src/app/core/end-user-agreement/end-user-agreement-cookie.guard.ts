@@ -19,6 +19,7 @@ export class EndUserAgreementCookieGuard extends AbstractEndUserAgreementGuard {
    * True when the user agreement cookie has been accepted
    */
   hasAccepted(): Observable<boolean> {
-    return observableOf(true);
+    return observableOf(this.endUserAgreementService.isCookieAccepted());
   }
+
 }
