@@ -10,7 +10,7 @@ export const environment = {
   // Default to using the local REST API (running in Docker)
   rest: {
     ssl: false,
-    host: 'localhost',
+    host: 'dspace',
     port: 8080,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/server'
