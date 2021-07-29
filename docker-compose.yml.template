@@ -34,10 +34,10 @@ services:
             - /bin/bash
             - '-c'
             - |
-            while (!</dev/tcp/§§INSTANCE-dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
-            /dspace/bin/dspace database migrate
-            /dspace/bin/dspace create-administrator -e test@test.edu -f admin -l user -p admin -c en
-            catalina.sh run
+                while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
+                /dspace/bin/dspace database migrate
+                /dspace/bin/dspace create-administrator -e test@test.edu -f admin -l user -p admin -c en
+                catalina.sh run
 
     §§INSTANCE-dspace-angular:
         container_name: §§INSTANCE-dspace-angular
