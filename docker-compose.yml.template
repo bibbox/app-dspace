@@ -2,7 +2,7 @@ version: '3'
 
 networks: 
     bibbox-default-network:
-        external: true
+    external: true
 
 services:
     §§INSTANCE-dspace:
@@ -12,18 +12,18 @@ services:
         links:
             - §§INSTANCE-dspacedb:dspacedb
             - §§INSTANCE-dspacesolr:dspacesolr
-	    - §§INSTANCE-dspace-angular:dspace-angular
+            - §§INSTANCE-dspace-angular:dspace-angular
 
         networks: 
             - bibbox-default-network
-	proxy:
-      	    TYPE: HELPER
+        proxy:
+            TYPE: HELPER
             URLPREFIX:  §§INSTANCE-rest
             TEMPLATE: default
             DISPLAYNAME: 'DSpace-Rest'        
-	ports:
-            - 8080:8080
-            - 8009:8009
+        ports:
+        - 8080:8080
+        - 8009:8009
         stdin_open: true
         tty: true
         volumes:
@@ -34,11 +34,11 @@ services:
             - /bin/bash
             - '-c'
             - |
-                while (!</dev/tcp/§§INSTANCE-dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
-                /dspace/bin/dspace database migrate
-                /dspace/bin/dspace create-administrator -e test@test.edu -f admin -l user -p admin -c en
-                catalina.sh run
-    
+            while (!</dev/tcp/§§INSTANCE-dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
+            /dspace/bin/dspace database migrate
+            /dspace/bin/dspace create-administrator -e test@test.edu -f admin -l user -p admin -c en
+            catalina.sh run
+
     §§INSTANCE-dspace-angular:
         container_name: §§INSTANCE-dspace-angular
         environment:
@@ -46,7 +46,7 @@ services:
             DSPACE_NAMESPACE: /
             DSPACE_PORT: '4000'
             DSPACE_SSL: "false"
-        image: dspace/dspace-angular:latest
+            image: dspace/dspace-angular:latest
         build:
             context: ./images/src/
             dockerfile: Dockerfile
@@ -60,12 +60,12 @@ services:
         links:
             - §§INSTANCE-dspace:dspace
         ports:
-           - 4000:4000
-           - 9876:9876
+            - 4000:4000
+            - 9876:9876
         stdin_open: true
         tty: true
         volumes:
-           - ./images/environment.dev.ts:/app/src/environments/environment.dev.ts
+            - ./images/environment.dev.ts:/app/src/environments/environment.dev.ts
 
     §§INSTANCE-dspacedb:
         container_name: §§INSTANCE-dspacedb
@@ -81,7 +81,7 @@ services:
         tty: true
         volumes: 
             - ./data/pgdata:/pgdata
-    
+
     §§INSTANCE-dspacesolr:
         container_name: §§INSTANCE-dspacesolr
         image: solr:8.8
@@ -104,10 +104,9 @@ services:
             - /bin/bash
             - '-c'
             - |
-                init-var-solr
-                precreate-core authority /opt/solr/server/solr/configsets/authority
-                precreate-core oai /opt/solr/server/solr/configsets/oai
-                precreate-core search /opt/solr/server/solr/configsets/search
-                precreate-core statistics /opt/solr/server/solr/configsets/statistics
-
-                exec solr -f
+            init-var-solr
+            precreate-core authority /opt/solr/server/solr/configsets/authority
+            precreate-core oai /opt/solr/server/solr/configsets/oai
+            precreate-core search /opt/solr/server/solr/configsets/search
+            precreate-core statistics /opt/solr/server/solr/configsets/statistics
+            exec solr -f
