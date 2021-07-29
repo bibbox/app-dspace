@@ -22,8 +22,8 @@ services:
             TEMPLATE: default
             DISPLAYNAME: 'DSpace-Rest'        
         ports:
-        - 8080:8080
-        - 8009:8009
+            - 8080:8080
+            - 8009:8009
         stdin_open: true
         tty: true
         volumes:
