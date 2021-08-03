@@ -12,7 +12,6 @@ services:
         links:
             - §§INSTANCE-dspacedb:dspacedb
             - §§INSTANCE-dspacesolr:dspacesolr
-            - §§INSTANCE-dspace-angular:dspace-angular
 
         networks: 
             - bibbox-default-network
@@ -68,7 +67,7 @@ services:
         volumes:
             - ./images/environment.dev.ts.template:/app/src/environments/environment.dev.ts.template
         entrypoint:
-            - /bin/bash
+            - /bin/sh
             - '-c'
             - sed -e "s/__REST-HOST/§§INSTANCE-rest.silicolabv4.bibbox.org/g" /app/src/environments/environment.dev.ts.template > /app/src/environments/environment.dev.ts
             - yarn run start:dev
