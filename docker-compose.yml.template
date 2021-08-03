@@ -29,10 +29,11 @@ services:
         volumes:
             - ./data/assetstore:/dspace/assetstore
             - ./images/ROOT:/usr/local/tomcat/webapps/ROOT
-            - ./images/configs/local.cfg:/dspace/config/local.cfg
+            - ./images/configs/local.cfg.template:/dspace/config/local.cfg.template
         entrypoint:
             - /bin/bash
             - '-c'
+            - sed -e "s/__REST-HOST/http://§§INSTANCE-rest.silicolabv4.bibbox.org/server/g" -e "s/__UI-HOST/http://§§INSTANCE.silicolabv4.bibbox.org/server/g" /dspace/config/local.cfg.template > /dspace/config/local.cfg
             - |
                 while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
                 /dspace/bin/dspace database migrate
@@ -65,7 +66,12 @@ services:
         stdin_open: true
         tty: true
         volumes:
-            - ./images/environment.dev.ts:/app/src/environments/environment.dev.ts
+            - ./images/environment.dev.ts.template:/app/src/environments/environment.dev.ts.template
+        entrypoint:
+            - /bin/bash
+            - '-c'
+            - sed -e "s/__REST-HOST/§§INSTANCE-rest.silicolabv4.bibbox.org/g" /app/src/environments/environment.dev.ts.template > /app/src/environments/environment.dev.ts
+            - yarn run start:dev
 
     §§INSTANCE-dspacedb:
         container_name: §§INSTANCE-dspacedb
