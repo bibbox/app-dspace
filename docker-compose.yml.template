@@ -31,13 +31,13 @@ services:
         volumes:
             - ./data/assetstore:/dspace/assetstore
             - ./images/ROOT:/usr/local/tomcat/webapps/ROOT
-            - ./images/configs/local.cfg:/dspace/config/local.cfg
+            - ./images/configs/local.cfg.template:/dspace/config/local.cfg.template
         entrypoint:
             - /bin/bash
             - '-c'
             - |
                 while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
-                sed -e "s/__REST-HOST/$REST_HOST}/g" -e "s/__UI-HOST/$UI_HOST/g" /dspace/config/local.cfg.template > /dspace/config/local.cfg
+                sed -e "s/__REST-HOST/$REST_HOST/g" -e "s/__UI-HOST/$UI_HOST/g" /dspace/config/local.cfg.template > /dspace/config/local.cfg
                 /dspace/bin/dspace database migrate
                 /dspace/bin/dspace create-administrator -e test@test.edu -f admin -l user -p admin -c en
                 catalina.sh run
