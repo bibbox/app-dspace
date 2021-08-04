@@ -41,7 +41,36 @@ services:
                 /dspace/bin/dspace database migrate
                 /dspace/bin/dspace create-administrator -e test@test.edu -f admin -l user -p admin -c en
                 catalina.sh run
-
+    
+    §§INSTANCE-dspace-angular:
+        container_name: §§INSTANCE-dspace-angular
+        environment:
+            DSPACE_HOST: §§INSTANCE-dspace-angular
+            DSPACE_NAMESPACE: /
+            DSPACE_PORT: '4000'
+            DSPACE_SSL: "false"
+            
+        build:
+            context: ./images/src/
+            dockerfile: Dockerfile
+        image: dspace/dspace-angular:latest
+        networks:
+            - bibbox-default-network
+        proxy:
+            TYPE: PRIMARY
+            URLPREFIX:  §§INSTANCE
+            TEMPLATE: default
+            DISPLAYNAME: 'DSpace'
+        links:
+            - §§INSTANCE-dspace:dspace
+        ports:
+            - 4000:4000
+            - 9876:9876
+        stdin_open: true
+        tty: true
+        volumes:
+            - ./images/environment.dev.ts:/app/src/environments/environment.dev.ts
+    
     §§INSTANCE-dspace-angular:
         container_name: §§INSTANCE-dspace-angular
         environment:
@@ -50,10 +79,10 @@ services:
             - DSPACE_PORT='4000'
             - DSPACE_SSL="false"
             - REST_HOST=§§INSTANCE-rest.silicolabv4.bibbox.org
-        image: dspace/dspace-angular:latest
         build:
             context: ./images/src/
             dockerfile: Dockerfile
+        image: dspace/dspace-angular:latest
         networks:
             - bibbox-default-network
         proxy:
