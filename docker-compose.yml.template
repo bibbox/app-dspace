@@ -69,14 +69,14 @@ services:
         stdin_open: true
         tty: true
         volumes:
-            - ./images/environment.dev.ts.template:/app/src/environments/environment.dev.ts.template
-        entrypoint:
-            - /bin/sh
-            - '-c'
-            - |
-                sed -e "s/__REST-HOST/$REST_HOST/g" /app/src/environments/environment.dev.ts.template > /app/src/environments/environment.dev.ts
-                yarn run start:dev
-                tail -f
+            - ./images/environment.dev.ts:/app/src/environments/environment.dev.ts
+        #entrypoint:
+        #    - /bin/sh
+        #    - '-c'
+        #    - |
+        #        sed -e "s/__REST-HOST/$REST_HOST/g" /app/src/environments/environment.dev.ts.template > /app/src/environments/environment.dev.ts
+        #        yarn run start:dev
+        #        tail -f
 
     §§INSTANCE-dspacedb:
         container_name: §§INSTANCE-dspacedb
