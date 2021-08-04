@@ -10,8 +10,8 @@ services:
         image: dspace/dspace:dspace-7_x-test
         restart: unless-stopped
         environment:
-            REST_HOST: http://§§INSTANCE-rest.silicolabv4.bibbox.org/server
-            UI_HOST: http://§§INSTANCE.silicolabv4.bibbox.org/
+            - REST_HOST=http://§§INSTANCE-rest.silicolabv4.bibbox.org/server
+            - UI_HOST=http://§§INSTANCE.silicolabv4.bibbox.org/
         links:
             - §§INSTANCE-dspacedb:dspacedb
             - §§INSTANCE-dspacesolr:dspacesolr
@@ -45,12 +45,12 @@ services:
     §§INSTANCE-dspace-angular:
         container_name: §§INSTANCE-dspace-angular
         environment:
-            DSPACE_HOST: §§INSTANCE-dspace-angular
-            DSPACE_NAMESPACE: /
-            DSPACE_PORT: '4000'
-            DSPACE_SSL: "false"
-            REST_HOST: §§INSTANCE-rest.silicolabv4.bibbox.org
-            image: dspace/dspace-angular:latest
+            - DSPACE_HOST=§§INSTANCE-dspace-angular
+            - DSPACE_NAMESPACE=/
+            - DSPACE_PORT='4000'
+            - DSPACE_SSL="false"
+            - REST_HOST=§§INSTANCE-rest.silicolabv4.bibbox.org
+        image: dspace/dspace-angular:latest
         build:
             context: ./images/src/
             dockerfile: Dockerfile
@@ -83,7 +83,7 @@ services:
         image: dspace/dspace-postgres-pgcrypto
         restart: unless-stopped
         environment:
-            PGDATA: /pgdata
+            - PGDATA=/pgdata
         networks:
             - bibbox-default-network
         ports:
