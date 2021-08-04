@@ -10,8 +10,8 @@ services:
         image: dspace/dspace:dspace-7_x-test
         restart: unless-stopped
         environment:
-            - REST_HOST=http://§§INSTANCE-rest.silicolabv4.bibbox.org/server
-            - UI_HOST=http://§§INSTANCE.silicolabv4.bibbox.org/
+            - REST_HOST=§§INSTANCE-rest.silicolabv4.bibbox.org
+            - UI_HOST=§§INSTANCE.silicolabv4.bibbox.org
         links:
             - §§INSTANCE-dspacedb:dspacedb
             - §§INSTANCE-dspacesolr:dspacesolr
@@ -31,13 +31,13 @@ services:
         volumes:
             - ./data/assetstore:/dspace/assetstore
             - ./images/ROOT:/usr/local/tomcat/webapps/ROOT
-            - ./images/configs/local.cfg.template:/dspace/config/local.cfg.template
+            - ./images/configs/local.cfg:/dspace/config/local.cfg
         entrypoint:
             - /bin/bash
             - '-c'
             - |
                 while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
-                sed -e "s/__REST-HOST/$REST_HOST/g" -e "s/__UI-HOST/$UI_HOST/g" /dspace/config/local.cfg.template > /dspace/config/local.cfg
+                sed -e "s/__REST-HOST/$REST_HOST}/g" -e "s/__UI-HOST/$UI_HOST/g" /dspace/config/local.cfg.template > /dspace/config/local.cfg
                 /dspace/bin/dspace database migrate
                 /dspace/bin/dspace create-administrator -e test@test.edu -f admin -l user -p admin -c en
                 catalina.sh run
