@@ -35,9 +35,9 @@ services:
         entrypoint:
             - /bin/bash
             - '-c'
-            - sed -e "s/__REST-HOST/$REST_HOST/g" -e "s/__UI-HOST/$UI_HOST/g" /dspace/config/local.cfg.template > /dspace/config/local.cfg
             - |
                 while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
+                sed -e "s/__REST-HOST/$REST_HOST/g" -e "s/__UI-HOST/$UI_HOST/g" /dspace/config/local.cfg.template > /dspace/config/local.cfg
                 /dspace/bin/dspace database migrate
                 /dspace/bin/dspace create-administrator -e test@test.edu -f admin -l user -p admin -c en
                 catalina.sh run
@@ -73,8 +73,10 @@ services:
         entrypoint:
             - /bin/sh
             - '-c'
-            - sed -e "s/__REST-HOST/$REST_HOST/g" /app/src/environments/environment.dev.ts.template > /app/src/environments/environment.dev.ts
-            - yarn run start:dev
+            - |
+                sed -e "s/__REST-HOST/$REST_HOST/g" /app/src/environments/environment.dev.ts.template > /app/src/environments/environment.dev.ts
+                yarn run start:dev
+                tail -f
 
     §§INSTANCE-dspacedb:
         container_name: §§INSTANCE-dspacedb
