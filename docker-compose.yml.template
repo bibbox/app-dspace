@@ -9,6 +9,9 @@ services:
         container_name: §§INSTANCE-dspace
         image: dspace/dspace:dspace-7_x-test
         restart: unless-stopped
+        environment:
+            REST_HOST: "http://§§INSTANCE-rest.silicolabv4.bibbox.org/server"
+            UI_HOST: "http://§§INSTANCE.silicolabv4.bibbox.org/"
         links:
             - §§INSTANCE-dspacedb:dspacedb
             - §§INSTANCE-dspacesolr:dspacesolr
@@ -32,7 +35,7 @@ services:
         entrypoint:
             - /bin/bash
             - '-c'
-            - sed -e "s/__REST-HOST/http://§§INSTANCE-rest.silicolabv4.bibbox.org/server/g" -e "s/__UI-HOST/http://§§INSTANCE.silicolabv4.bibbox.org/server/g" /dspace/config/local.cfg.template > /dspace/config/local.cfg
+            - sed -e "s/__REST-HOST/$REST_HOST/g" -e "s/__UI-HOST/$UI_HOST/g" /dspace/config/local.cfg.template > /dspace/config/local.cfg
             - |
                 while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
                 /dspace/bin/dspace database migrate
@@ -46,6 +49,7 @@ services:
             DSPACE_NAMESPACE: /
             DSPACE_PORT: '4000'
             DSPACE_SSL: "false"
+            REST_HOST: "§§INSTANCE-rest.silicolabv4.bibbox.org"
             image: dspace/dspace-angular:latest
         build:
             context: ./images/src/
@@ -69,7 +73,7 @@ services:
         entrypoint:
             - /bin/sh
             - '-c'
-            - sed -e "s/__REST-HOST/§§INSTANCE-rest.silicolabv4.bibbox.org/g" /app/src/environments/environment.dev.ts.template > /app/src/environments/environment.dev.ts
+            - sed -e "s/__REST-HOST/$REST_HOST/g" /app/src/environments/environment.dev.ts.template > /app/src/environments/environment.dev.ts
             - yarn run start:dev
 
     §§INSTANCE-dspacedb:
