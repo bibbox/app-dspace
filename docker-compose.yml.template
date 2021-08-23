@@ -69,7 +69,7 @@ services:
         stdin_open: true
         tty: true
         volumes:
-            - ./images/environment.dev.ts:/app/src/environments/environment.dev.ts
+            - ./images/environment.dev.ts.template:/app/src/environments/environment.dev.ts.template
         entrypoint:
             - /bin/sh
             - '-c'
