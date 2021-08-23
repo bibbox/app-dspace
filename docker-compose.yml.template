@@ -76,7 +76,7 @@ services:
             - /bin/sh
             - '-c'
             - |
-                sh sed_angular.sh
+                sh /app/src/environments/sed_angular.sh
                 yarn run start:dev
                 tail -f
 
