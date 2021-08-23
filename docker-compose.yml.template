@@ -71,11 +71,12 @@ services:
         tty: true
         volumes:
             - ./images/environment.dev.ts.template:/app/src/environments/environment.dev.ts.template
+            - ./images/sed_angular.sh:/app/src/environments/sed_angular.sh
         entrypoint:
             - /bin/sh
             - '-c'
             - |
-                sed -e "s/__REST-HOST/$REST_HOST/g" /app/src/environments/environment.dev.ts.template > /app/src/environments/environment.dev.ts
+                sh sed_angular.sh
                 yarn run start:dev
                 tail -f
 
