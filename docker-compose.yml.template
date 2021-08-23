@@ -45,35 +45,6 @@ services:
     §§INSTANCE-dspace-angular:
         container_name: §§INSTANCE-dspace-angular
         environment:
-            DSPACE_HOST: §§INSTANCE-dspace-angular
-            DSPACE_NAMESPACE: /
-            DSPACE_PORT: '4000'
-            DSPACE_SSL: "false"
-            
-        build:
-            context: ./images/src/
-            dockerfile: Dockerfile
-        image: dspace/dspace-angular:latest
-        networks:
-            - bibbox-default-network
-        proxy:
-            TYPE: PRIMARY
-            URLPREFIX:  §§INSTANCE
-            TEMPLATE: default
-            DISPLAYNAME: 'DSpace'
-        links:
-            - §§INSTANCE-dspace:dspace
-        ports:
-            - 4000:4000
-            - 9876:9876
-        stdin_open: true
-        tty: true
-        volumes:
-            - ./images/environment.dev.ts:/app/src/environments/environment.dev.ts
-    
-    §§INSTANCE-dspace-angular:
-        container_name: §§INSTANCE-dspace-angular
-        environment:
             - DSPACE_HOST=§§INSTANCE-dspace-angular
             - DSPACE_NAMESPACE=/
             - DSPACE_PORT='4000'
@@ -99,13 +70,13 @@ services:
         tty: true
         volumes:
             - ./images/environment.dev.ts:/app/src/environments/environment.dev.ts
-        #entrypoint:
-        #    - /bin/sh
-        #    - '-c'
-        #    - |
-        #        sed -e "s/__REST-HOST/$REST_HOST/g" /app/src/environments/environment.dev.ts.template > /app/src/environments/environment.dev.ts
-        #        yarn run start:dev
-        #        tail -f
+        entrypoint:
+            - /bin/sh
+            - '-c'
+            - |
+                sed -e "s/__REST-HOST/$REST_HOST/g" /app/src/environments/environment.dev.ts.template > /app/src/environments/environment.dev.ts
+                yarn run start:dev
+                tail -f
 
     §§INSTANCE-dspacedb:
         container_name: §§INSTANCE-dspacedb
