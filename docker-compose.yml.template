@@ -75,13 +75,13 @@ services:
         volumes:
             - ./images/environment.dev.ts.template:/app/src/environments/environment.dev.ts.template
             - ./images/sed_angular.sh:/app/src/environments/sed_angular.sh
-        entrypoint:
-            - /bin/sh
-            - '-c'
-            - |
-                sh /app/src/environments/sed_angular.sh
-                yarn run start:dev
-                tail -f
+        #entrypoint:
+        #    - /bin/sh
+        #    - '-c'
+        #    - |
+        #        sh /app/src/environments/sed_angular.sh
+        #        yarn run start:dev
+        #        tail -f
 
     §§INSTANCE-dspacedb:
         container_name: §§INSTANCE-dspacedb
