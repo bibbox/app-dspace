@@ -9,9 +9,9 @@
 export const environment = {
   // Default to using the local REST API (running in Docker)
   rest: {
-    ssl: false,
-    host: '__REST-HOST',
-    port: 80,
+    ssl: true,
+    host: 'ds-rest.silicolabv4.bibbox.org',
+    port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/server'
   }
