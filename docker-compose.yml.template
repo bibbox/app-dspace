@@ -74,6 +74,7 @@ services:
         tty: true
         volumes:
             - ./images/environment.dev.ts:/app/src/environments/environment.dev.ts
+            - ./images/environment.prod.ts:/app/src/environments/environment.prod.ts
 
     §§INSTANCE-dspacedb:
         container_name: §§INSTANCE-dspacedb
