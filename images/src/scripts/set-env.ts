@@ -81,6 +81,7 @@ function createServerConfig(host?: string, port?: string, nameSpace?: string, ss
 
   if (hasValue(ssl)) {
     result.ssl = ssl.trim().match(/^(true|1|yes)$/i) ? true : false;
+    console.log(ssl)
     console.log('ssl is ' + result.ssl);
   }
 
