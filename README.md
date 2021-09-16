@@ -7,7 +7,7 @@ $sudo chmod -R 777 data/
 
 after this just run:
 
-docker-compose up 
+docker-compose up --build
 
 The app will spin up and you can Open your browser and reach the frontend at: 
 
