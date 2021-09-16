@@ -1,0 +1,13 @@
+dspace.dir=/dspace
+dspace.server.url=http://__REST-HOST:8080/server
+dspace.ui.url=http://__UI-HOST/
+dspace.name=DSpace Started with Docker Compose
+# Ensure we are using the 'dspacedb' image for our database
+db.url=jdbc:postgresql://dspacedb:5432/dspace
+# Ensure we are using the 'dspacesolr' image for Solr
+solr.server=http://dspacesolr:8983/solr
+# NOTE: This setting is required for a REST API running in Docker to trust requests from the host machine.
+# This IP range MUST correspond to the 'dspacenet' subnet defined in our 'docker-compose.yml'.
+proxies.trusted.ipranges = 172.23.0
+rest.cors.allowed-origins = http://__UI-HOST:4000/
+rest.cors.allowed-origins = http://__REST-HOST:4000/

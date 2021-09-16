@@ -14,6 +14,9 @@ services:
             - dspacesolr:dspacesolr
         networks: 
             - bibbox-default-network
+        environment:
+            - REST_HOST=localhost
+            - UI_HOST=dspace-angular
         ports:
             - 8080:8080
             - 8009:8009
@@ -22,12 +25,14 @@ services:
         volumes:
             - ./data/assetstore:/dspace/assetstore
             - ./images/ROOT:/usr/local/tomcat/webapps/ROOT
-            - ./images/configs/local.cfg:/dspace/config/local.cfg
+            - ./images/configs/local.cfg.template.local:/dspace/config/local.cfg.template
+            - ./images/configs/sed.sh:/dspace/config/sed.sh
         entrypoint:
             - /bin/bash
             - '-c'
             - |
                 while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
+                bash /dspace/config/sed.sh
                 /dspace/bin/dspace database migrate
                 /dspace/bin/dspace create-administrator -e test@test.edu -f admin -l user -p admin -c en
                 catalina.sh run
