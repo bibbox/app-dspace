@@ -1,47 +1,33 @@
-# app-dspace
-DSpace Bibbox App 
+# DSpace BIBBOX application
 
-To run locally clone this repository and change the permissions of the data folder:
+This container can be installed as [BIBBOX APP](http://silicolabv4.bibbox.org/applications "BIBBOX App Store") or standalone
 
-$sudo chmod -R 777 data/
+* initial E-Mail/password: **test@test.edu / admin**
+* after the docker installation goto http://silicolabv4.bibbox.org/instances
 
-after this just run:
+## Standalone Installation 
 
-docker-compose up --build
+To install the app locally execute the commands:
 
-The app will spin up and you can Open your browser and reach the frontend at: 
+`git clone https://github.com/bibbox/app-dspace`
 
-http://localhost:4000
+`cd app-dspace`
 
-Login data is:
+`docker-compose up -d --build`
 
-E-Mail: test@test.edu
+After the Installation open "http://localhost:5000" in your browser
 
-PW: admin
+The dafault port of the app SeedDMS is 8065.
 
--------------------------------------------------------------------------------------------------------
+If necessary change the ports in the environment file .env and the volume mounts in `docker-compose.yml`.
 
-To test the app on the Bibbox go to:
 
-http://silicolabv4.bibbox.org/applications
+## Docker Images in the Aoo
+  
+  None Container under developement therfore no finished images -- Container Builds on docker starup 
 
-and click on DSpace and choose install choose a Name and Display name. After the istallation has finished goto
-the Instances Tab and klick on the on off icon for the Dspace App with your chosen Display Name.
-
-E-Mail: test@test.edu
-
-PW: admin
-
----------------------------------------------------------------------------------------------------------
-
-Notes: 
-
-The docker compose file builds the dspace-angular source code located in the src directory
-To update the angular code currently it is necessary to clone:
-
-https://github.com/DSpace/dspace-angular
-
-and copy the src/ directory into:
-
-./images/src
-
+## Install Environment Variables
+  None
+  
+The default values for the standalone installation are:
+  No settings required
