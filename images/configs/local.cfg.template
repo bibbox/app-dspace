@@ -1,6 +1,6 @@
 dspace.dir=/dspace
-dspace.server.url=http://__REST-HOST/server
-dspace.ui.url=http://__UI-HOST
+dspace.server.url=https://__REST-HOST/server
+dspace.ui.url=https://__UI-HOST
 dspace.name=DSpace Started with Docker Compose
 # Ensure we are using the 'dspacedb' image for our database
 db.url=jdbc:postgresql://dspacedb:5432/dspace
