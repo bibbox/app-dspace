@@ -1,6 +1,6 @@
 # DSpace BIBBOX application
 
-This container can be installed as [BIBBOX APP](http://silicolabv4.bibbox.org/applications "BIBBOX App Store") or standalone
+This container can be installed as [BIBBOX APP](https://bibbox.readthedocs.io/en/latest/ "BIBBOX App") or standalone
 
 * initial E-Mail/password: **test@test.edu / admin**
 * after the docker installation goto http://silicolabv4.bibbox.org/instances
@@ -27,7 +27,7 @@ If necessary change the ports in the environment file .env and the volume mounts
 
 ## Install within BIBBOX
 
-You can use the [BIBBOX APP Store](http://bibbox.readthedocs.io/en/latest/admin-documentation/ "BIBBOX App Store") to install a lot of software tools. 
+You can use the [BIBBOX APP](https://bibbox.readthedocs.io/en/latest/ "BIBBOX App") to install a lot of software tools. 
 
 ## Docker Images Used
   * [dspace/dspace:dspace-7_x-test](https://hub.docker.com/r/dspace/dspace) (Rest API; this container is not listed in this repository but is pullable)
