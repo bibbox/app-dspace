@@ -1,5 +1,8 @@
 # DSpace BIBBOX application
 
+# IMPORTANT: This repository is deprecated and should not be used.
+
+
 This container can be installed as [BIBBOX APP](https://bibbox.readthedocs.io/en/latest/ "BIBBOX App") or standalone
 
 * initial E-Mail/password: **test@test.edu / admin**
